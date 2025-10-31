@@ -1,0 +1,39 @@
+#include <iostream>
+
+// Структура с ценами
+struct Prices {
+    int drink;
+    int first;
+    int second;
+};
+
+// Структура с выбором клиента
+struct Order {
+    int drinkCount;
+    int firstCount;
+    int secondCount;
+};
+
+// Функция для расчёта стоимости заказа
+int calculateOrderCost(const Prices& prices, const Order& order) {
+    return prices.drink * order.drinkCount +
+           prices.first * order.firstCount +
+           prices.second * order.secondCount;
+}
+
+int main() {
+    // Задаём цены товаров
+    Prices prices = {10, 20, 30};
+
+    // --- Заказ первого клиента ---
+    Order client1Order = {2, 1, 0}; // 2 напитка, 1 первое, 0 второе
+    int client1Cost = calculateOrderCost(prices, client1Order);
+    std::cout << "Стоимость заказа первого клиента: " << client1Cost << std::endl;
+
+    // --- Заказ второго клиента ---
+    Order client2Order = {1, 0, 3}; // 1 напиток, 0 первое, 3 второе
+    int client2Cost = calculateOrderCost(prices, client2Order);
+    std::cout << "Стоимость заказа второго клиента: " << client2Cost << std::endl;
+
+    return 0;
+}
