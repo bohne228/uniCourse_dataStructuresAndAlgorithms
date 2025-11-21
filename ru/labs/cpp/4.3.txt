@@ -1,0 +1,75 @@
+#include <iostream>
+#include <array>
+#include <span>
+#include <cassert>
+
+// --- Вариант 1: бесконечный цикл с break ---
+void productInfiniteLoop(std::span<int> inputOutput, std::span<int> coefficients)
+{
+    assert(inputOutput.size() == coefficients.size());
+
+    size_t i = 0;
+    while (true)
+    {
+        if (i >= inputOutput.size())
+            break;
+
+        inputOutput[i] *= coefficients[i];
+        i++;
+    }
+}
+
+// --- Вариант 2: while с условием ---
+void productWhile(std::span<int> inputOutput, std::span<int> coefficients)
+{
+    assert(inputOutput.size() == coefficients.size());
+
+    size_t i = 0;
+    while (i < inputOutput.size())
+    {
+        inputOutput[i] *= coefficients[i];
+        i++;
+    }
+}
+
+// --- Вариант 3: for ---
+void productFor(std::span<int> inputOutput, std::span<int> coefficients)
+{
+    assert(inputOutput.size() == coefficients.size());
+
+    for (size_t i = 0; i < inputOutput.size(); i++)
+    {
+        inputOutput[i] *= coefficients[i];
+    }
+}
+
+// --- Функция для вывода массива ---
+void printArray(const std::array<int, 4>& arr)
+{
+    for (auto x : arr)
+        std::cout << x << " ";
+    std::cout << std::endl;
+}
+
+int main()
+{
+    std::array<int, 4> arr1{1, 2, 3, 4};
+    std::array<int, 4> arr2{1, 2, 3, 4};
+    std::array<int, 4> arr3{1, 2, 3, 4};
+    std::array<int, 4> coeff{2, 3, 4, 5};
+
+    // Применяем разные варианты
+    productInfiniteLoop(arr1, coeff);
+    productWhile(arr2, coeff);
+    productFor(arr3, coeff);
+
+    // Выводим результаты
+    std::cout << "Infinite loop: ";
+    printArray(arr1); // 2 6 12 20
+
+    std::cout << "While loop: ";
+    printArray(arr2); // 2 6 12 20
+
+    std::cout << "For loop: ";
+    printArray(arr3); // 2 6 12 20
+}

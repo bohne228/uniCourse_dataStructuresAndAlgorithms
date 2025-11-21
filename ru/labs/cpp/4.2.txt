@@ -1,0 +1,40 @@
+#include <iostream>
+
+// Структура для хранения количества фруктов
+struct FruitCounts
+{
+    int apples;
+    int pears;
+    int oranges;
+};
+
+int main()
+{
+    FruitCounts fruits;
+
+    std::cout << "Apples: ";
+    std::cin >> fruits.apples;
+
+    std::cout << "Pears: ";
+    std::cin >> fruits.pears;
+
+    std::cout << "Oranges: ";
+    std::cin >> fruits.oranges;
+
+    bool allConditionsMet{}; // временная переменная для общего условия
+
+    {
+        // Блок для временных переменных подусловий
+        bool applesCondition = fruits.apples > 5;
+        bool pearsCondition = fruits.pears < 8;
+        bool orangesCondition = fruits.oranges == 2 * fruits.apples;
+
+        allConditionsMet = applesCondition && pearsCondition && orangesCondition;
+    }
+
+    // Используем проверку вне блока
+    if (allConditionsMet)
+    {
+        std::cout << "Hello" << std::endl;
+    }
+}
