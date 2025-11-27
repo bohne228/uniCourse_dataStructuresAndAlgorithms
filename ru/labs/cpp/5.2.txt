@@ -1,0 +1,56 @@
+#include <iostream>
+#include <string_view>
+#include <cassert>
+
+std::string_view secondWord(std::string_view str)
+{
+    // Найти первый пробел
+    size_t first = str.find(' ');
+    if (first == std::string_view::npos)
+        return ""; // нет пробела → второго слова нет
+
+    // Если строка закончилась сразу после пробела
+    if (first + 1 >= str.size())
+        return "";
+
+    // Найти второй пробел, начиная ПОСЛЕ первого
+    size_t second = str.find(' ', first + 1);
+
+    // Если подряд идут пробелы → второго слова нет
+    if (str[first + 1] == ' ')
+        return "";
+
+    // Если второго пробела нет → вернуть остаток строки
+    if (second == std::string_view::npos)
+        return str.substr(first + 1);
+
+    // Есть оба пробела → вернуть слово между ними
+    return str.substr(first + 1, second - (first + 1));
+}
+
+void runTests()
+{
+    // Примеры из задания
+    assert(secondWord("Hello world") == "world");
+    assert(secondWord("Hello my dear") == "my");
+    assert(secondWord("") == "");
+    assert(secondWord(" ") == "");
+    assert(secondWord(" a ") == "a");
+    assert(secondWord("a  ") == "");
+    assert(secondWord("a  b") == "");
+    assert(secondWord("hello     world    dear") == "");
+
+    // Дополнительные тесты
+    assert(secondWord("ab cd") == "cd");
+    assert(secondWord("x y z") == "y");
+    assert(secondWord(" test") == "test");
+    assert(secondWord("  test") == "");   // много пробелов — нет второго слова
+    assert(secondWord("one two") == "two");
+
+    std::cout << "Все тесты пройдены!\n";
+}
+
+int main()
+{
+    runTests();
+}

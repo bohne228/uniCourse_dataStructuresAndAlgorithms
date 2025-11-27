@@ -1,0 +1,42 @@
+#include <iostream>
+#include <string_view>
+#include <cassert>
+
+int countOnes(std::string_view str)
+{
+    int count = 0;
+
+    for (char c : str)
+    {
+        if (c == '1')
+        {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+void runTests()
+{
+    // ни одной '1'
+    assert(countOnes("0000") == 0);
+    assert(countOnes("") == 0);
+
+    // несколько '1'
+    assert(countOnes("001100") == 2);
+    assert(countOnes("10101") == 3);
+    assert(countOnes("1100101") == 4);
+
+    // все '1'
+    assert(countOnes("1") == 1);
+    assert(countOnes("111") == 3);
+    assert(countOnes("1111111") == 7);
+
+    std::cout << "Все тесты успешно пройдены!\n";
+}
+
+int main()
+{
+    runTests();
+}
